@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<robot name="three_wheel_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <material name="yellow">
+        <color rgba="1 0.4 0 1"/>
+    </material>
+    <material name="black">
+        <color rgba="0 0 0 0.95"/>
+    </material>
+    <material name="gray">
+        <color rgba="0.75 0.75 0.75 1"/>
+    </material>
+
+    <xacro:macro name="cylinder_inertial_matrix" params="m r h">
+        <inertial>
+            <mass value="${m}" />
+            <inertia ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+                iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+                izz="${m*r*r/2}" />
+        </inertial>
+    </xacro:macro>
+
+    <!-- <xacro:include filename="$(find lekiwi_sim_gazebo)/xacro/lekiwi_wheel.xacro" /> -->
+
+    <!-- PROPERTY LIST -->
+    <xacro:property name="M_PI" value="3.1415926"/>
+
+    <!-- base_link的质量、半径、高度 -->
+    <xacro:property name="base_mass"   value="2" />
+    <xacro:property name="base_radius"  value="0.1"/>
+    <xacro:property name="base_height" value="0.07"/>
+    <xacro:property name="bottom_to_floor" value="0.024"/>
+
+
+    <!-- 三个轮子 -->
+    <xacro:property name="wheel_mass"   value="0.1" />
+    <xacro:property name="wheel_radius" value="0.04"/>
+    <xacro:property name="wheel_width" value="0.025"/>
+    <xacro:property name="wheel_offset" value="${base_radius+wheel_width/2+0.005}"/>
+    <xacro:property name="wheel_z_offset" value="${-1*(bottom_to_floor+base_height/2-wheel_radius)}"/>
+
+
+    <link name="base_footprint">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.001 0.001 0.001" />
+            </geometry>
+        </visual>
+    </link>
+    <gazebo reference="base_footprint">
+        <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <joint name="base_footprint_joint" type="fixed">
+        <origin xyz="0 0 ${bottom_to_floor+base_height/2}" rpy="0 0 0" />
+        <parent link="base_footprint"/>
+        <child link="base_link" />
+    </joint>
+    <!-- 底盘 -->
+
+    <link name="base_link">
+        <visual>
+            <origin xyz=" 0 0 0" rpy="0 0 0" />
+            <geometry>
+
+                <cylinder radius="${base_radius}" length = "${base_height}"/>
+            </geometry>
+
+        </visual>
+        <collision>
+            <origin xyz=" 0 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${base_radius}" length = "${base_height}"/>
+            </geometry>
+        </collision>
+        <xacro:cylinder_inertial_matrix  m="${base_mass}" r="${base_radius}" h="${base_height}" />
+    </link>
+
+    <gazebo reference="base_link">
+        <material>Gazebo/Yellow</material>
+
+    </gazebo>
+
+
+    <!-- 运动轮的宏 -->
+    <xacro:macro name="wheel" params="prefix joint_offset_x joint_offset_y joint_offset_z link_pitch link_yaw axis_x axis_y axis_z">
+        <joint name="${prefix}_joint" type="continuous">
+            <origin xyz="${joint_offset_x} ${joint_offset_y} ${joint_offset_z}" rpy="0 0 0"/> <!-- 相对于 parent 坐标系，方向 parent -> child -->
+            <parent link="base_link"/>
+            <child link="${prefix}_link"/>
+            <axis xyz="${axis_x} ${axis_y} ${axis_z}"/> <!-- 相对于轮子初始坐标系，向量方向由 parent -> child -->
+        </joint>
+
+        <link name="${prefix}_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="${M_PI/2} ${link_pitch} ${link_yaw}" />
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length = "${wheel_width}"/>
+                </geometry>
+                <material name="gray" />
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="${M_PI/2} ${link_pitch} ${link_yaw}" /> <!-- 相对于轮子初始坐标系 -->
+                <geometry>
+                    <cylinder radius="${wheel_radius}" length = "${wheel_width}"/>
+                </geometry>
+            </collision>
+            <xacro:cylinder_inertial_matrix  m="${wheel_mass}" r="${wheel_radius}" h="${wheel_width}" />
+        </link>
+
+        <gazebo reference="${prefix}_link">
+            <material>Gazebo/Gray</material>
+            <mu1>100000.0</mu1>
+            <mu2>100000.0</mu2>
+        </gazebo>
+
+        <transmission name="${prefix}_transmission">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${prefix}_joint">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${prefix}_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+    </xacro:macro>
+
+    <!-- wheel1：前方轮，旋转轴沿 Y -->
+    <xacro:wheel prefix="wheel1"
+        joint_offset_x="${wheel_offset}"
+        joint_offset_y="0"
+        joint_offset_z="${wheel_z_offset}"
+        link_pitch="0"
+        link_yaw="${M_PI/2}"
+        axis_x="1" axis_y="0" axis_z="0" />
+
+    <!-- wheel2：左后轮（120°） -->
+    <xacro:wheel prefix="wheel2"
+        joint_offset_x="${-wheel_offset/2}"
+        joint_offset_y="${wheel_offset*sqrt(3)/2}"
+        joint_offset_z="${wheel_z_offset}"
+        link_pitch="0"
+        link_yaw="${M_PI/6}"
+        axis_x="-0.5" axis_y="${sqrt(3)/2}" axis_z="0" />
+
+    <!-- wheel3：右后轮（-120°） -->
+    <xacro:wheel prefix="wheel3"
+        joint_offset_x="${-wheel_offset/2}"
+        joint_offset_y="${-wheel_offset*sqrt(3)/2}"
+        joint_offset_z="${wheel_z_offset}"
+        link_pitch="0"
+        link_yaw="${-M_PI/6}"
+        axis_x="-0.5" axis_y="${-sqrt(3)/2}" axis_z="0" />
+
+
+    <!-- Gazebo 插件 -->
+
+    <ros2_control name="three_wheel_hw" type="system">
+        <hardware>
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+
+        <joint name="wheel1_joint">
+            <command_interface name="velocity">
+                <param name="min">-24.5</param>
+                <param name="max">24.5</param>
+            </command_interface>
+            <state_interface name="position">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="velocity">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+        </joint>
+
+        <joint name="wheel2_joint">
+            <command_interface name="velocity">
+                <param name="min">-24.5</param>
+                <param name="max">24.5</param>
+            </command_interface>
+            <state_interface name="position">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="velocity">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+        </joint>
+
+        <joint name="wheel3_joint">
+            <command_interface name="velocity">
+                <param name="min">-24.5</param>
+                <param name="max">24.5</param>
+            </command_interface>
+            <state_interface name="position">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+            <state_interface name="velocity">
+                <param name="initial_value">0.0</param>
+            </state_interface>
+        </joint>
+
+    </ros2_control>
+
+    <gazebo>
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+            <parameters>$(find lekiwi_sim_gazebo)/config/my_robot_controllers.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+</robot>

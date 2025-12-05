@@ -1,0 +1,4 @@
+
+[submodule "core_sim_pkgs/rf2o_laser_odometry"]
+	path = core_sim_pkgs/rf2o_laser_odometry
+	url = https://github.com/chenzhaoqiJM/rf2o_laser_odometry.git
