@@ -60,7 +60,7 @@
 
     <!-- Robot Footprint -->
     <link name="base_footprint">
-        <xacro:box_inertial_matrix m="0" l="0" w="0" h="0"/>
+        <!-- <xacro:box_inertial_matrix m="0" l="0" w="0" h="0"/> -->
     </link>
 
     <!-- Robot Base -->
@@ -267,7 +267,7 @@
     <gazebo reference="laser_link">
         <sensor name="lidar" type="ray">
             <always_on>true</always_on>
-            <visualize>true</visualize>
+            <visualize>false</visualize>
             <update_rate>10</update_rate>
             <ray>
                 <scan>

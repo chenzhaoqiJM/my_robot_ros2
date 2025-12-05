@@ -1,5 +1,6 @@
 amcl:
   ros__parameters:
+    use_sim_time: True
     alpha1: 0.2
     alpha2: 0.2
     alpha3: 0.2
@@ -47,8 +48,10 @@ amcl:
       z: 0.0
       yaw: 0.0
 
+
 bt_navigator:
   ros__parameters:
+    use_sim_time: True
     global_frame: map
     robot_base_frame: base_footprint
     transform_tolerance: 0.5
@@ -80,6 +83,7 @@ bt_navigator:
 
 docking_server:
   ros__parameters:
+    use_sim_time: True
     dock_plugins: ['nova_carter_dock']
     nova_carter_dock:
       plugin: 'opennav_docking::SimpleChargingDock'
@@ -100,6 +104,7 @@ docking_server:
 
 controller_server:
   ros__parameters:
+    use_sim_time: True
     controller_frequency: 20.0
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
@@ -139,6 +144,7 @@ controller_server:
 local_costmap:
   local_costmap:
     ros__parameters:
+      use_sim_time: True
       update_frequency: 5.0
       publish_frequency: 2.0
       global_frame: odom
@@ -173,6 +179,7 @@ local_costmap:
 global_costmap:
   global_costmap:
     ros__parameters:
+      use_sim_time: True
       update_frequency: 3.0
       publish_frequency: 3.0
       global_frame: map
@@ -209,10 +216,12 @@ global_costmap:
 
 map_server:
   ros__parameters:
+    use_sim_time: True
     yaml_filename: "map.yaml"
 
 map_saver:
   ros__parameters:
+    use_sim_time: True
     save_map_timeout: 5.0
     free_thresh_default: 0.25
     occupied_thresh_default: 0.65
@@ -220,6 +229,7 @@ map_saver:
 
 planner_server:
   ros__parameters:
+    use_sim_time: True
     expected_planner_frequency: 10.0
     planner_plugins: ["GridBased"]
     GridBased:
@@ -230,6 +240,7 @@ planner_server:
 
 behavior_server:
   ros__parameters:
+    use_sim_time: True
     local_costmap_topic: local_costmap/costmap_raw
     local_footprint_topic: local_costmap/published_footprint
     global_costmap_topic: global_costmap/costmap_raw
@@ -258,6 +269,7 @@ behavior_server:
 
 waypoint_follower:
   ros__parameters:
+    use_sim_time: True
     loop_rate: 20
     stop_on_failure: false
     waypoint_task_executor_plugin: "wait_at_waypoint"
@@ -268,6 +280,7 @@ waypoint_follower:
 
 collision_monitor:
   ros__parameters:
+    use_sim_time: True
     base_frame_id: "base_footprint"
     odom_frame_id: "odom"
     cmd_vel_in_topic: "cmd_vel_smoothed"
@@ -358,6 +371,7 @@ collision_monitor:
 
 velocity_smoother:
   ros__parameters:
+    use_sim_time: True
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: "OPEN_LOOP"

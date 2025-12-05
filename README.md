@@ -1,4 +1,11 @@
 
+# install deps
+
+
+```
+sudo apt install ros-humble-nav2-graceful-controller
+```
+
 # 激光建图导航
 
 
