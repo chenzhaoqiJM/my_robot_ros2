@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 import glob
 
-package_name = 'rdk_localization'
+package_name = 'myrobot_slam'
 
 setup(
     name=package_name,
@@ -24,8 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'hello_node = rdk_localization.hello_node:main',
-            'odom_pub_node = rdk_localization.odom_pub:main'
+            'hello_node = myrobot_slam.hello_node:main',
+            'odom_pub_node = myrobot_slam.odom_pub:main'
         ],
     },
 )

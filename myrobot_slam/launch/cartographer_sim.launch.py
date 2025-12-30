@@ -26,7 +26,7 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
 #################################### 节点参数配置 ########################################################
     # 导航功能包的路径
-    rdk_localization_dir = get_package_share_directory('rdk_localization')
+    myrobot_slam_dir = get_package_share_directory('myrobot_slam')
     # 是否使用仿真时间，这里使用Gazebo，所以配置为true
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     # 构建地图的分辨率
@@ -34,7 +34,7 @@ def generate_launch_description():
     # 发布地图数据的周期
     publish_period_sec = LaunchConfiguration('publish_period_sec', default='1.0')
     # 参数配置文件在功能包中的文件夹路径
-    configuration_directory = LaunchConfiguration('configuration_directory',default= os.path.join(rdk_localization_dir, 'config') )
+    configuration_directory = LaunchConfiguration('configuration_directory',default= os.path.join(myrobot_slam_dir, 'config') )
     # 参数配置文件的名称
     configuration_basename = LaunchConfiguration('configuration_basename', default='lds_2d.lua')
 

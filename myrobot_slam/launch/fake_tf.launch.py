@@ -15,7 +15,7 @@ def generate_launch_description():
         #     arguments=['1', '1', '0.0', '0', '0.0', '0', '/odom', '/base_footprint'],
         #     ),
 
-        Node(package='rdk_localization',
+        Node(package='myrobot_slam',
             executable='odom_pub_node',
             name='odom_pub_node1',
             ),
