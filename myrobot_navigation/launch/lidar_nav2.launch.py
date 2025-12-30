@@ -9,16 +9,16 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
-    rdk_nav_dir = get_package_share_directory('rdk_navigation')
-    rdk_nav_launchr = os.path.join(rdk_nav_dir, 'launch')
+    myrobot_nav_dir = get_package_share_directory('myrobot_navigation')
+    myrobot_nav_launchr = os.path.join(myrobot_nav_dir, 'launch')
 
     # 地图文件
-    map_dir = os.path.join(rdk_nav_dir, 'map')
+    map_dir = os.path.join(myrobot_nav_dir, 'map')
     map_file = LaunchConfiguration('map', default=os.path.join(map_dir, 'my_map.yaml'))
 
     # 用于导航的配置参数
-    param_dir = os.path.join(rdk_nav_dir, 'config')
-    param_file = LaunchConfiguration('params', default=os.path.join(param_dir, 'rdk_diff.yaml'))
+    param_dir = os.path.join(myrobot_nav_dir, 'config')
+    param_file = LaunchConfiguration('params', default=os.path.join(param_dir, 'myrobot_diff_lidar_dev.yaml'))
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -33,7 +33,7 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                [rdk_nav_launchr, '/bringup_launch.py']),
+                [myrobot_nav_launchr, '/bringup_launch.py']),
             launch_arguments={
                 'map': map_file,
                 'use_sim_time': use_sim_time,

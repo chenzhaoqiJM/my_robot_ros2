@@ -9,13 +9,13 @@ from launch.substitutions import LaunchConfiguration
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
-    rdk_nav_dir = get_package_share_directory('rdk_navigation')
+    myrobot_nav_dir = get_package_share_directory('myrobot_navigation')
 
     nav2_launch = os.path.join(get_package_share_directory('nav2_bringup'), 'launch', 'navigation_launch.py')
 
 
     # 用于导航的配置参数
-    param_dir = os.path.join(rdk_nav_dir, 'config')
+    param_dir = os.path.join(myrobot_nav_dir, 'config')
     param_file = LaunchConfiguration('params', default=os.path.join(param_dir, 'turtlebot3_rgbd_nav2_params.yaml'))
 
     return LaunchDescription([

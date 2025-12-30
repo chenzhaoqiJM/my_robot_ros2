@@ -1,5 +1,5 @@
 def main():
-    print('Hi from rdk_navigation.')
+    print('Hi from myrobot_navigation.')
 
 
 if __name__ == '__main__':

@@ -10,15 +10,15 @@ def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
 
     # for navigation
-    rdk_nav_dir = get_package_share_directory('rdk_navigation')
-    rdk_nav_launchr = os.path.join(rdk_nav_dir, 'launch')
+    myrobot_nav_dir = get_package_share_directory('myrobot_navigation')
+    myrobot_nav_launchr = os.path.join(myrobot_nav_dir, 'launch')
 
-    param_file_name = 'rdk_diff.yaml'
-    param_dir = os.path.join(rdk_nav_dir, 'config')
+    param_file_name = 'myrobot_diff.yaml'
+    param_dir = os.path.join(myrobot_nav_dir, 'config')
     param_file = LaunchConfiguration('params', default=os.path.join(param_dir, param_file_name))
 
     # for slam
-    slam_bringup_dir = get_package_share_directory('rdk_localization')
+    slam_bringup_dir = get_package_share_directory('myrobot_slam')
     # slam_launch_file = os.path.join(slam_bringup_dir, 'launch', 'slam_gmapping_sim.launch.py')
     slam_launch_file = os.path.join(slam_bringup_dir, 'launch', 'online_async_sim.launch.py')
 
@@ -36,7 +36,7 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                [rdk_nav_launchr, '/bringup_launch_for_slam.py']),
+                [myrobot_nav_launchr, '/bringup_launch_for_slam.py']),
             launch_arguments={
                 'map': '',
                 'slam': 'True',
