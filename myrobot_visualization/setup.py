@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 import glob
 
-package_name = 'rdk_visualization'
+package_name = 'myrobot_visualization'
 
 setup(
     name=package_name,
@@ -25,7 +25,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'hello_node = rdk_visualization.hello_node:main'
+            'hello_node = myrobot_visualization.hello_node:main'
         ],
     },
 )

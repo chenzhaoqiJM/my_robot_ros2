@@ -1,5 +1,5 @@
 def main():
-    print('Hi from rdk_visualization.')
+    print('Hi from myrobot_visualization.')
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
-    package_dir = get_package_share_directory('rdk_visualization')
+    package_dir = get_package_share_directory('myrobot_visualization')
 
     rviz_config_file = LaunchConfiguration('rviz_config')
 
