@@ -19,6 +19,7 @@ setup(
         (os.path.join('share', package_name, 'urdf/meshes'), [f for f in glob.glob('urdf/meshes/*') if os.path.isfile(f)]),
 
         (os.path.join('share', package_name, 'xacro'), [f for f in glob.glob('xacro/*') if os.path.isfile(f)]),
+        (os.path.join('share', package_name, 'xacro/sensor'), [f for f in glob.glob('xacro/sensor/*') if os.path.isfile(f)]),
         (os.path.join('share', package_name, 'worlds'), [f for f in glob.glob('worlds/*') if os.path.isfile(f)]),
         (os.path.join('share', package_name, 'rviz'), [f for f in glob.glob('rviz/*') if os.path.isfile(f)]),
         (os.path.join('share', package_name, 'meshes'), [f for f in glob.glob('meshes/*') if os.path.isfile(f)]),

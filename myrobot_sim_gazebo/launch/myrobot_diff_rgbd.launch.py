@@ -20,11 +20,11 @@ def generate_launch_description():
     world_path = os.path.join(pkg_path, world_file_path)
 
     # robot state publisher
-    xacro_file = os.path.join(pkg_path,'xacro','myrobot_diff_rgbd_only.xacro')
+    xacro_file = os.path.join(pkg_path,'xacro','myrobot_rgbd2.xacro')
     robot_description_config = xacro.process_file(xacro_file)
     params = {'robot_description': robot_description_config.toxml(), 'use_sim_time': True}
 
-    jobot_robot_state_publisher = Node(
+    myrobot_robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
         output='screen',
@@ -60,8 +60,7 @@ def generate_launch_description():
 
     # Launch them all!
     return LaunchDescription([
-        jobot_robot_state_publisher,
-
+        myrobot_robot_state_publisher,
         gazebo,
         spawn_entity,
     ])

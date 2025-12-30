@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="jobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="myrobot_base" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <!-- PROPERTY LIST -->
     <xacro:property name="M_PI" value="3.1415926"/>
