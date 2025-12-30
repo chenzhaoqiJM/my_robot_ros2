@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="lekiwi_diff_bot"
+<robot name="myrobot_diff_bot"
     xmlns:xacro="http://ros.org/wiki/xacro">
 
     <!-- PROPERTY LIST -->

@@ -12,7 +12,7 @@ import xacro
 
 def generate_launch_description():
 
-    package_name='lekiwi_sim_gazebo' #<--- CHANGE ME
+    package_name='myrobot_sim_gazebo' #<--- CHANGE ME
     world_file_path = 'worlds/myworld1'
 
     pkg_gazebo_ros = get_package_share_directory('gazebo_ros')
@@ -20,7 +20,7 @@ def generate_launch_description():
     world_path = os.path.join(pkg_path, world_file_path)
 
     # robot state publisher
-    xacro_file = os.path.join(pkg_path,'xacro','lekiwi_diff_lidar_only.xacro')
+    xacro_file = os.path.join(pkg_path,'xacro','myrobot_diff_lidar_only.xacro')
     robot_description_config = xacro.process_file(xacro_file)
     params = {'robot_description': robot_description_config.toxml(), 'use_sim_time': True}
 
@@ -49,7 +49,7 @@ def generate_launch_description():
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
     spawn_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
                         arguments=['-topic', 'robot_description',
-                                   '-entity', 'lekiwi_diff_bot',
+                                   '-entity', 'myrobot_diff_bot',
                                    '-x', spawn_x_val,
                                    '-y', spawn_y_val,
                                    '-z', spawn_z_val,

@@ -6,7 +6,7 @@ from ament_index_python.packages import get_package_share_directory
 import os
 
 def generate_launch_description():
-    pkg_share = get_package_share_directory('lekiwi_sim_gazebo')
+    pkg_share = get_package_share_directory('myrobot_sim_gazebo')
     default_model_path = os.path.join(pkg_share, 'urdf/LeKiwi3.urdf')
     default_rviz_config_path = os.path.join(pkg_share, 'rviz/display.rviz')
 

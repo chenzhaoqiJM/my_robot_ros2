@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 import os
 import glob
 
-package_name = 'lekiwi_sim_gazebo'
+package_name = 'myrobot_sim_gazebo'
 
 setup(
     name=package_name,
@@ -30,7 +30,7 @@ setup(
         (os.path.join('share', package_name, 'models/turtlebot3_common/meshes'), [f for f in glob.glob('models/turtlebot3_common/meshes/*') if os.path.isfile(f)]),
 
         (os.path.join('share', package_name, 'models/turtlebot3_waffle'), [f for f in glob.glob('models/turtlebot3_waffle/*') if os.path.isfile(f)]),
-        (os.path.join('share', package_name, 'models/lekiwi'), [f for f in glob.glob('models/lekiwi/*') if os.path.isfile(f)]),
+        (os.path.join('share', package_name, 'models/myrobot'), [f for f in glob.glob('models/myrobot/*') if os.path.isfile(f)]),
 
     ],
     install_requires=['setuptools'],

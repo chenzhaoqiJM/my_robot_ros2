@@ -21,8 +21,6 @@
         </inertial>
     </xacro:macro>
 
-    <!-- <xacro:include filename="$(find lekiwi_sim_gazebo)/xacro/lekiwi_wheel.xacro" /> -->
-
     <!-- PROPERTY LIST -->
     <xacro:property name="M_PI" value="3.1415926"/>
 
@@ -207,7 +205,7 @@
 
     <gazebo>
         <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-            <parameters>$(find lekiwi_sim_gazebo)/config/my_robot_controllers.yaml</parameters>
+            <parameters>$(find myrobot_sim_gazebo)/config/my_robot_controllers.yaml</parameters>
         </plugin>
     </gazebo>
 

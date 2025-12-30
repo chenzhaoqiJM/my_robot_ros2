@@ -26,7 +26,7 @@ def generate_launch_description():
     TURTLEBOT3_MODEL = 'waffle'
     model_folder = 'turtlebot3_' + TURTLEBOT3_MODEL
     urdf_path = os.path.join(
-        get_package_share_directory('lekiwi_sim_gazebo'),
+        get_package_share_directory('myrobot_sim_gazebo'),
         'models',
         model_folder,
         'model.sdf'
