@@ -43,6 +43,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'scan_subscriber = myrobot_sim_gazebo.scan_subscriber:main',
         ],
     },
 )

@@ -1,3 +1,9 @@
+# 编译命令
+
+```
+colcon build --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
+```
+
 
 # install deps
 
