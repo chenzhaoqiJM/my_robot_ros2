@@ -13,7 +13,9 @@ def generate_launch_description():
     myrobot_nav_dir = get_package_share_directory('myrobot_navigation')
     myrobot_nav_launchr = os.path.join(myrobot_nav_dir, 'launch')
 
-    param_file_name = 'myrobot_diff.yaml'
+    nav2_launch_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
+
+    param_file_name = 'myrobot_diff_lidar_dev.yaml'
     param_dir = os.path.join(myrobot_nav_dir, 'config')
     param_file = LaunchConfiguration('params', default=os.path.join(param_dir, param_file_name))
 
@@ -36,7 +38,7 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
-                [myrobot_nav_launchr, '/bringup_launch_for_slam.py']),
+                [nav2_launch_dir, '/bringup_launch.py']),
             launch_arguments={
                 'map': '',
                 'slam': 'True',
