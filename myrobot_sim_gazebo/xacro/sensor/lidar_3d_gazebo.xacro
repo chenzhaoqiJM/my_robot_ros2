@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lidar_3d">
+
+    <xacro:macro name="lidar_3d" params="prefix:=lidar3d topic:=points samples:=720 vertical_samples:=16 min_angle:=-3.14159 max_angle:=3.14159 min_vertical_angle:=-0.261799 max_vertical_angle:=0.261799 min_range:=0.10 max_range:=30.0 update_rate:=10 visualize:=false">
+        <link name="${prefix}_link">
+            <inertial>
+                <mass value="0.25" />
+                <origin xyz="0 0 0" />
+                <inertia ixx="0.02" ixy="0.0" ixz="0.0"
+                         iyy="0.02" iyz="0.0"
+                         izz="0.02" />
+            </inertial>
+
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <cylinder length="0.05" radius="0.04"/>
+                </geometry>
+                <material name="black"/>
+            </visual>
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <cylinder length="0.05" radius="0.04"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <gazebo reference="${prefix}_link">
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+        <gazebo reference="${prefix}_link">
+            <sensor type="gpu_ray" name="${prefix}_sensor">
+                <update_rate>${update_rate}</update_rate>
+                <visualize>${visualize}</visualize>
+                <ray>
+                    <scan>
+                        <horizontal>
+                            <samples>${samples}</samples>
+                            <resolution>1</resolution>
+                            <min_angle>${min_angle}</min_angle>
+                            <max_angle>${max_angle}</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>${vertical_samples}</samples>
+                            <resolution>1</resolution>
+                            <min_angle>${min_vertical_angle}</min_angle>
+                            <max_angle>${max_vertical_angle}</max_angle>
+                        </vertical>
+                    </scan>
+                    <range>
+                        <min>${min_range}</min>
+                        <max>${max_range}</max>
+                        <resolution>0.01</resolution>
+                    </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0.0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </ray>
+                <plugin name="${prefix}_plugin" filename="libgazebo_ros_ray_sensor.so">
+                    <ros>
+                        <namespace>/</namespace>
+                        <remapping>~/out:=${topic}</remapping>
+                    </ros>
+                    <output_type>sensor_msgs/PointCloud2</output_type>
+                    <frame_name>${prefix}_link</frame_name>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+    </xacro:macro>
+</robot>
