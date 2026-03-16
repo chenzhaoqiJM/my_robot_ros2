@@ -15,8 +15,8 @@ setup(
         (os.path.join('share', package_name, 'config'), [f for f in glob.glob('config/*') if os.path.isfile(f)]),
         (os.path.join('share', package_name, 'launch'), glob.glob('launch/*.py')),
 
-        (os.path.join('share', package_name, 'urdf'), [f for f in glob.glob('urdf/*') if os.path.isfile(f)]),
-        (os.path.join('share', package_name, 'urdf/meshes'), [f for f in glob.glob('urdf/meshes/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'urdf'), [f for f in glob.glob('urdf/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'urdf/meshes'), [f for f in glob.glob('urdf/meshes/*') if os.path.isfile(f)]),
 
         (os.path.join('share', package_name, 'xacro'), [f for f in glob.glob('xacro/*') if os.path.isfile(f)]),
         (os.path.join('share', package_name, 'xacro/sensor'), [f for f in glob.glob('xacro/sensor/*') if os.path.isfile(f)]),
@@ -25,13 +25,13 @@ setup(
         (os.path.join('share', package_name, 'meshes'), [f for f in glob.glob('meshes/*') if os.path.isfile(f)]),
 
         # meshes
-        (os.path.join('share', package_name, 'models/turtlebot3_common/meshes/sensors'), [f for f in glob.glob('models/turtlebot3_common/meshes/sensors/*') if os.path.isfile(f)]),
-        (os.path.join('share', package_name, 'models/turtlebot3_common/meshes/bases'), [f for f in glob.glob('models/turtlebot3_common/meshes/bases/*') if os.path.isfile(f)]),
-        (os.path.join('share', package_name, 'models/turtlebot3_common/meshes/wheels'), [f for f in glob.glob('models/turtlebot3_common/meshes/wheels/*') if os.path.isfile(f)]),
-        (os.path.join('share', package_name, 'models/turtlebot3_common/meshes'), [f for f in glob.glob('models/turtlebot3_common/meshes/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'models/turtlebot3_common/meshes/sensors'), [f for f in glob.glob('models/turtlebot3_common/meshes/sensors/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'models/turtlebot3_common/meshes/bases'), [f for f in glob.glob('models/turtlebot3_common/meshes/bases/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'models/turtlebot3_common/meshes/wheels'), [f for f in glob.glob('models/turtlebot3_common/meshes/wheels/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'models/turtlebot3_common/meshes'), [f for f in glob.glob('models/turtlebot3_common/meshes/*') if os.path.isfile(f)]),
 
-        (os.path.join('share', package_name, 'models/turtlebot3_waffle'), [f for f in glob.glob('models/turtlebot3_waffle/*') if os.path.isfile(f)]),
-        (os.path.join('share', package_name, 'models/myrobot'), [f for f in glob.glob('models/myrobot/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'models/turtlebot3_waffle'), [f for f in glob.glob('models/turtlebot3_waffle/*') if os.path.isfile(f)]),
+        # (os.path.join('share', package_name, 'models/myrobot'), [f for f in glob.glob('models/myrobot/*') if os.path.isfile(f)]),
 
     ],
     install_requires=['setuptools'],
