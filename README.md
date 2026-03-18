@@ -65,3 +65,26 @@ ros2 launch rdk_navigation rgbd_nav2.py
 ```
 ros2 launch myrobot_visualization display_rgbd.launch.py
 ```
+
+
+## 3D 激光雷达建图（RTAB）
+
+启动仿真
+
+```
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar.launch.py
+```
+
+启动slam
+
+slam 里面包含了实验性的激光雷达里程计
+
+```
+ros2 launch myrobot_slam rtabmap_3d_lidar.launch.py
+```
+
+启动可视化
+
+```
+ros2 launch myrobot_visualization display_rtab_3dlidar.launch.py
+```
