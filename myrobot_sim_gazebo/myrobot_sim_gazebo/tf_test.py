@@ -14,9 +14,20 @@ class TFMonitor(Node):
         # 10 Hz 定时器
         self.timer = self.create_timer(0.1, self.on_timer)
         self.last_xyz = None
+        self.last_map_odom_xyz = None
 
     def on_timer(self):
         try:
+            map_to_odom = self.buffer.lookup_transform(
+                'map',
+                'odom',
+                rclpy.time.Time()
+            )
+
+            mo_x = map_to_odom.transform.translation.x
+            mo_y = map_to_odom.transform.translation.y
+            mo_z = map_to_odom.transform.translation.z
+
             # 直接查 map → base_footprint 的 TF
             trans = self.buffer.lookup_transform(
                 'map',
@@ -39,8 +50,22 @@ class TFMonitor(Node):
 
             self.last_xyz = (x, y, z)
 
+            if self.last_map_odom_xyz is None:
+                self.last_map_odom_xyz = (mo_x, mo_y, mo_z)
+                map_odom_log = f"map->odom XYZ: ({mo_x:.3f}, {mo_y:.3f}, {mo_z:.3f}) | ΔXYZ: (0.000, 0.000, 0.000)"
+            else:
+                mo_dx = mo_x - self.last_map_odom_xyz[0]
+                mo_dy = mo_y - self.last_map_odom_xyz[1]
+                mo_dz = mo_z - self.last_map_odom_xyz[2]
+                self.last_map_odom_xyz = (mo_x, mo_y, mo_z)
+                map_odom_log = (
+                    f"map->odom XYZ: ({mo_x:.3f}, {mo_y:.3f}, {mo_z:.3f}) | "
+                    f"ΔXYZ: ({mo_dx:.3f}, {mo_dy:.3f}, {mo_dz:.3f})"
+                )
+
             self.get_logger().info(
-                f"XYZ: ({x:.3f}, {y:.3f}, {z:.3f}) | ΔXYZ: ({dx:.3f}, {dy:.3f}, {dz:.3f})"
+                f"{map_odom_log} || map->base_footprint XYZ: ({x:.3f}, {y:.3f}, {z:.3f}) | "
+                f"ΔXYZ: ({dx:.3f}, {dy:.3f}, {dz:.3f})"
             )
 
         except Exception as e:
