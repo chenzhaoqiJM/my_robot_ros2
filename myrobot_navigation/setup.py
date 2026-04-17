@@ -25,7 +25,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'hello_node = myrobot_navigation.hello_node:main'
+            'square_waypoints = myrobot_navigation.square_waypoints:main',
         ],
     },
 )
