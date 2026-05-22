@@ -45,7 +45,7 @@ def main() -> int:
     navigator = BasicNavigator()
 
     try:
-        navigator.waitUntilNav2Active()
+        # navigator.waitUntilNav2Active()
 
         waypoints = build_square_waypoints(navigator, side_length=1.0)
         navigator.followWaypoints(waypoints)
