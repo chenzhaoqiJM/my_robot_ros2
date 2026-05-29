@@ -1,5 +1,6 @@
 amcl:
   ros__parameters:
+    use_sim_time: True
     alpha1: 0.2
     alpha2: 0.2
     alpha3: 0.2
@@ -51,6 +52,7 @@ bt_navigator:
   ros__parameters:
     global_frame: map
     robot_base_frame: base_footprint
+    use_sim_time: True
     transform_tolerance: 0.5
     filter_duration: 0.3
     default_nav_to_pose_bt_xml: "$(find-pkg-share nav2_bt_navigator)/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml" # behavior trees location.
@@ -81,6 +83,7 @@ bt_navigator:
 docking_server:
   ros__parameters:
     dock_plugins: ['nova_carter_dock']
+    use_sim_time: True
     nova_carter_dock:
       plugin: 'opennav_docking::SimpleChargingDock'
     docks: ['home_dock','flex_dock1', 'flex_dock2']
@@ -101,6 +104,7 @@ docking_server:
 controller_server:
   ros__parameters:
     controller_frequency: 10.0
+    use_sim_time: True
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.001
     min_theta_velocity_threshold: 0.001
@@ -165,6 +169,7 @@ local_costmap:
     ros__parameters:
       update_frequency: 5.0
       publish_frequency: 2.0
+      use_sim_time: True
       global_frame: odom
       robot_base_frame: base_footprint
       rolling_window: true
@@ -199,6 +204,7 @@ global_costmap:
     ros__parameters:
       update_frequency: 3.0
       publish_frequency: 3.0
+      use_sim_time: True
       global_frame: map
       robot_base_frame: base_footprint
       transform_tolerance: 0.5
@@ -234,6 +240,7 @@ global_costmap:
 map_server:
   ros__parameters:
     yaml_filename: "map.yaml"
+    use_sim_time: True
 
 map_saver:
   ros__parameters:
@@ -241,10 +248,12 @@ map_saver:
     free_thresh_default: 0.25
     occupied_thresh_default: 0.65
     map_subscribe_transient_local: true
+    use_sim_time: True
 
 planner_server:
   ros__parameters:
     expected_planner_frequency: 10.0
+    use_sim_time: True
     planner_plugins: ["GridBased"]
     GridBased:
       plugin: "nav2_navfn_planner/NavfnPlanner"
@@ -255,6 +264,7 @@ planner_server:
 behavior_server:
   ros__parameters:
     local_costmap_topic: local_costmap/costmap_raw
+    use_sim_time: True
     local_footprint_topic: local_costmap/published_footprint
     global_costmap_topic: global_costmap/costmap_raw
     global_footprint_topic: global_costmap/published_footprint
@@ -284,6 +294,7 @@ waypoint_follower:
   ros__parameters:
     loop_rate: 20
     stop_on_failure: false
+    use_sim_time: True
     waypoint_task_executor_plugin: "wait_at_waypoint"
     wait_at_waypoint:
       plugin: "nav2_waypoint_follower::WaitAtWaypoint"
@@ -294,6 +305,7 @@ collision_monitor:
   ros__parameters:
     base_frame_id: "base_footprint"
     odom_frame_id: "odom"
+    use_sim_time: True
     cmd_vel_in_topic: "cmd_vel_smoothed"
     cmd_vel_out_topic: "cmd_vel"
     state_topic: "collision_monitor_state"
@@ -383,6 +395,7 @@ collision_monitor:
 velocity_smoother:
   ros__parameters:
     smoothing_frequency: 20.0
+    use_sim_time: True
     scale_velocities: false
     feedback: "OPEN_LOOP"
     max_velocity: [0.5, 0.0, 2.5]
