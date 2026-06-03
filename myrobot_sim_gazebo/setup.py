@@ -43,6 +43,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'camera_color_relay = myrobot_sim_gazebo.camera_color_relay:main',
             'scan_subscriber = myrobot_sim_gazebo.scan_subscriber:main',
         ],
     },
