@@ -12,6 +12,9 @@
     <material name="black" rgba="0.02 0.02 0.02 1"/>
     <material name="gray" rgba="0.55 0.55 0.55 1"/>
     <material name="red" rgba="0.8 0.1 0.1 1"/>
+    <material name="blue" rgba="0.1 0.25 0.85 1"/>
+    <material name="green" rgba="0.1 0.55 0.25 1"/>
+    <material name="orange" rgba="0.9 0.35 0.05 1"/>
   </asset>
 
   <worldbody>
@@ -38,6 +41,28 @@
     <geom name="box_front" type="box" pos="2.0 0.0 0.25" size="0.08 0.8 0.25" material="red"/>
     <geom name="box_left" type="box" pos="0.0 1.5 0.25" size="1.2 0.08 0.25" material="red"/>
     <geom name="box_right" type="box" pos="-1.2 -1.0 0.25" size="0.08 1.0 0.25" material="red"/>
+
+    <geom name="wall_north" type="box" pos="0.0 3.4 0.25" size="3.6 0.06 0.25" material="blue"/>
+    <geom name="wall_south_left" type="box" pos="-2.2 -3.1 0.25" size="1.4 0.06 0.25" material="blue"/>
+    <geom name="wall_south_right" type="box" pos="2.2 -3.1 0.25" size="1.4 0.06 0.25" material="blue"/>
+    <geom name="wall_west" type="box" pos="-3.4 0.2 0.25" size="0.06 2.6 0.25" material="blue"/>
+    <geom name="wall_east" type="box" pos="3.4 -0.4 0.25" size="0.06 2.8 0.25" material="blue"/>
+
+    <geom name="corridor_left" type="box" pos="-0.85 -2.0 0.25" size="0.06 0.9 0.25" material="green"/>
+    <geom name="corridor_right" type="box" pos="0.85 -2.0 0.25" size="0.06 0.9 0.25" material="green"/>
+    <geom name="corridor_end" type="box" pos="0.0 -2.9 0.25" size="0.85 0.06 0.25" material="green"/>
+
+    <geom name="pillar_northwest" type="cylinder" pos="-2.2 2.2 0.3" size="0.18 0.3" material="orange"/>
+    <geom name="pillar_northeast" type="cylinder" pos="2.6 1.8 0.3" size="0.22 0.3" material="orange"/>
+    <geom name="pillar_southwest" type="cylinder" pos="-2.7 -1.9 0.3" size="0.16 0.3" material="orange"/>
+    <geom name="pillar_southeast" type="cylinder" pos="2.4 -2.2 0.3" size="0.2 0.3" material="orange"/>
+
+    <geom name="short_barrier_center" type="box" pos="0.3 0.65 0.2" size="0.55 0.05 0.2" euler="0 0 0.6" material="green"/>
+    <geom name="short_barrier_west" type="box" pos="-2.0 0.7 0.2" size="0.55 0.05 0.2" euler="0 0 -0.45" material="green"/>
+    <geom name="short_barrier_east" type="box" pos="2.6 0.8 0.2" size="0.5 0.05 0.2" euler="0 0 -0.7" material="green"/>
+
+    <geom name="corner_block_nw" type="box" pos="-3.0 3.0 0.25" size="0.35 0.35 0.25" material="red"/>
+    <geom name="corner_block_se" type="box" pos="3.0 -3.0 0.25" size="0.35 0.35 0.25" material="red"/>
   </worldbody>
 
   <actuator>
