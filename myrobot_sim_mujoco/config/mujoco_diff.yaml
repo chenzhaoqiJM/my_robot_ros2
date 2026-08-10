@@ -1,0 +1,33 @@
+mujoco_diff_bridge:
+  ros__parameters:
+    model_path: ""
+    update_rate: 100.0
+    publish_rate: 30.0
+
+    use_sim_time: true
+    publish_clock: true
+    publish_tf: true
+    enable_viewer: false
+
+    odom_frame: odom
+    base_frame: base_footprint
+    base_link_frame: base_link
+    laser_frame: laser_link
+    imu_frame: imu_link
+
+    cmd_vel_topic: /cmd_vel
+    odom_topic: /odom
+    scan_topic: /scan
+    imu_topic: /imu/data
+
+    wheel_radius: 0.04
+    wheel_separation: 0.225
+    max_linear_velocity: 0.5
+    max_angular_velocity: 1.5
+
+    laser_site: laser_site
+    laser_min_angle: -3.1415926
+    laser_max_angle: 3.1415926
+    laser_num_beams: 360
+    laser_min_range: 0.08
+    laser_max_range: 12.0

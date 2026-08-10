@@ -1,0 +1,47 @@
+<mujoco model="myrobot_diff_lidar">
+  <compiler angle="radian" coordinate="local"/>
+  <option timestep="0.01" gravity="0 0 -9.81" integrator="RK4"/>
+
+  <default>
+    <geom friction="1.0 0.01 0.001" contype="0" conaffinity="0" rgba="0.8 0.8 0.8 1"/>
+    <joint damping="0.1"/>
+  </default>
+
+  <asset>
+    <material name="yellow" rgba="1 0.55 0 1"/>
+    <material name="black" rgba="0.02 0.02 0.02 1"/>
+    <material name="gray" rgba="0.55 0.55 0.55 1"/>
+    <material name="red" rgba="0.8 0.1 0.1 1"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 3" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <geom name="floor" type="plane" size="8 8 0.1" material="gray" contype="1" conaffinity="1"/>
+
+    <body name="base" pos="0 0 0.08">
+      <freejoint name="base_free_joint"/>
+      <geom name="base_geom" type="cylinder" size="0.10 0.035" material="yellow" mass="1.0" contype="0" conaffinity="0"/>
+      <site name="laser_site" pos="0.07 0 0.045" size="0.01" rgba="0 0 1 1"/>
+      <site name="imu_site" pos="0 0 0.045" size="0.01" rgba="0 1 0 1"/>
+
+      <body name="left_wheel" pos="0 0.1125 -0.04" euler="1.57079632679 0 0">
+        <joint name="left_wheel_joint" type="hinge" axis="0 0 1"/>
+        <geom name="left_wheel_geom" type="cylinder" size="0.04 0.0125" material="black" mass="0.2" contype="0" conaffinity="0"/>
+      </body>
+
+      <body name="right_wheel" pos="0 -0.1125 -0.04" euler="1.57079632679 0 0">
+        <joint name="right_wheel_joint" type="hinge" axis="0 0 1"/>
+        <geom name="right_wheel_geom" type="cylinder" size="0.04 0.0125" material="black" mass="0.2" contype="0" conaffinity="0"/>
+      </body>
+    </body>
+
+    <geom name="box_front" type="box" pos="2.0 0.0 0.25" size="0.08 0.8 0.25" material="red"/>
+    <geom name="box_left" type="box" pos="0.0 1.5 0.25" size="1.2 0.08 0.25" material="red"/>
+    <geom name="box_right" type="box" pos="-1.2 -1.0 0.25" size="0.08 1.0 0.25" material="red"/>
+  </worldbody>
+
+  <actuator>
+    <velocity name="left_wheel_velocity" joint="left_wheel_joint" kv="10" ctrlrange="-30 30"/>
+    <velocity name="right_wheel_velocity" joint="right_wheel_joint" kv="10" ctrlrange="-30 30"/>
+  </actuator>
+</mujoco>
