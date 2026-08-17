@@ -15,7 +15,55 @@ sudo apt install ros-humble-nav2-graceful-controller
 # 激光建图导航
 
 
+启动仿真环境，或者使用mujoco仿真环境
 
+```bash
+ros2 launch myrobot_sim_mujoco myrobot_diff_lidar.launch.py
+```
+
+## 建图
+
+### slam-toolbox sync
+
+```bash
+ros2 launch myrobot_slam online_sync_sim.launch.py
+```
+
+### slam-toolbox async
+
+```bash
+ros2 launch myrobot_slam online_async_sim.launch.py
+```
+
+### cartographer
+
+```bash
+ros2 launch myrobot_slam cartographer_sim.launch.py
+```
+
+### 建图可视化
+
+```bash
+ros2 launch myrobot_visualization display_slam.launch.py
+```
+
+### 保存地图
+
+```bash
+ros2 run nav2_map_server map_saver_cli -f my_map2
+```
+
+## 导航
+
+```bash
+ros2 launch myrobot_navigation lidar_nav2.launch.py
+```
+
+### 导航可视化
+
+```bash
+ros2 launch myrobot_visualization display_navigation.launch.py
+```
 
 # 视觉建图导航
 
@@ -24,19 +72,19 @@ sudo apt install ros-humble-nav2-graceful-controller
 
 启动仿真
 
-```
+```bash
 ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_only.launch.py
 ```
 
 启动slam
 
-```
+```bash
 ros2 launch myrobot_slam turtlebot3_rgbd.launch.py
 ```
 
 启动 rviz
 
-```
+```bash
 ros2 launch myrobot_visualization display_rgbd.launch.py
 ```
 
