@@ -41,6 +41,7 @@ class MujocoDiffBridge(Node):
     def __init__(self) -> None:
         super().__init__('mujoco_diff_bridge')
 
+        self._declare_parameter_overrides()
         self.declare_parameter('model_path', '')
         self.declare_parameter('update_rate', 100.0)
         self.declare_parameter('publish_rate', 30.0)
@@ -135,9 +136,18 @@ class MujocoDiffBridge(Node):
         self.dt = 1.0 / self.update_rate
         self.publish_dt = 1.0 / self.publish_rate
         self._running = True
+        self._initialize_specialized_bridge()
         self.step_thread = threading.Thread(target=self._run_loop, daemon=True)
         self.step_thread.start()
         self.get_logger().info(f'Loaded MuJoCo model: {self.model_path}')
+
+    def _declare_parameter_overrides(self) -> None:
+        """Hook for specialized bridges to declare additional parameters."""
+        return
+
+    def _initialize_specialized_bridge(self) -> None:
+        """Hook for specialized bridges to initialize before stepping starts."""
+        return
 
     def _on_cmd_vel(self, msg: Twist) -> None:
         self.cmd_v = self._clamp(float(msg.linear.x), -self.max_linear_velocity, self.max_linear_velocity)
