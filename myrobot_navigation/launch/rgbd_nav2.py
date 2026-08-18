@@ -16,7 +16,7 @@ def generate_launch_description():
 
     # 用于导航的配置参数
     param_dir = os.path.join(myrobot_nav_dir, 'config')
-    param_file = LaunchConfiguration('params', default=os.path.join(param_dir, 'turtlebot3_rgbd_nav2_params.yaml'))
+    param_file = LaunchConfiguration('params', default=os.path.join(param_dir, 'rgbd_nav2_params.yaml'))
 
     return LaunchDescription([
 
