@@ -73,7 +73,7 @@ ros2 launch myrobot_visualization display_navigation.launch.py
 启动仿真
 
 ```bash
-ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_only.launch.py
+ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd.launch.py
 ```
 
 启动slam
@@ -93,13 +93,13 @@ ros2 launch myrobot_visualization display_rgbd.launch.py
 启动仿真
 
 ```bash
-ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_only.launch.py
+ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd.launch.py
 ```
 
 启动slam
 
 ```bash
-ros2 launch myrobot_slam turtlebot3_rgbd.launch.py localization:=true
+ros2 launch myrobot_slam rtabmap_rgbd.launch.py localization:=true
 ```
 
 启动 nav2
