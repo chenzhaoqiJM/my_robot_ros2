@@ -34,7 +34,7 @@
         min_range="0.10"
         max_range="30.0"
         update_rate="10"
-        visualize="false"/>
+        visualize="true"/>
 
     <joint name="imu_joint" type="fixed">
         <origin xyz="0 0 0" rpy="0 0 0" />
