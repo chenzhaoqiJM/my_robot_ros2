@@ -15,7 +15,7 @@ def generate_launch_description():
 
     parameters = [{
             'use_sim_time': use_sim_time,
-            'frame_id': 'base_link',
+            'frame_id': 'base_footprint',
             'odom_frame_id': 'odom',
             'map_frame_id': 'map',
             'subscribe_depth': False,
@@ -32,6 +32,8 @@ def generate_launch_description():
             'Grid/3D': 'true',
             'Grid/RangeMax': '20.0',
             'Grid/CellSize': '0.1',
+            'Grid/MaxGroundHeight':'0.05', # All points above 5 cm are obstacles
+            'Grid/MaxObstacleHeight':'0.4',  # All points over 1 meter are ignored
             'RGBD/NeighborLinkRefining': 'true',
             'RGBD/ProximityBySpace': 'true',
             'RGBD/AngularUpdate': '0.05',
@@ -78,7 +80,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'use_sim_time': use_sim_time,
-            'frame_id': 'base_link',
+            'frame_id': 'base_footprint',
             'subscribe_scan_cloud': True,
             'subscribe_depth': False,
             'subscribe_rgb': False,
@@ -96,7 +98,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'use_sim_time': use_sim_time,
-            'frame_id': 'base_link',
+            'frame_id': 'base_footprint',
             'Grid/3D': 'true',
             'Grid/NormalsSegmentation': 'true',
             'Grid/MaxGroundHeight': '0.05',

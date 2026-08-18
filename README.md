@@ -92,25 +92,25 @@ ros2 launch myrobot_visualization display_rgbd.launch.py
 
 启动仿真
 
-```
+```bash
 ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_only.launch.py
 ```
 
 启动slam
 
-```
+```bash
 ros2 launch myrobot_slam turtlebot3_rgbd.launch.py localization:=true
 ```
 
 启动 nav2
 
-```
-ros2 launch rdk_navigation rgbd_nav2.py
+```bash
+ros2 launch myrobot_navigation rgbd_nav2.py
 ```
 
 启动 rviz
 
-```
+```bash
 ros2 launch myrobot_visualization display_rgbd.launch.py
 ```
 
@@ -119,7 +119,7 @@ ros2 launch myrobot_visualization display_rgbd.launch.py
 
 启动仿真
 
-```
+```bash
 ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar.launch.py
 ```
 
@@ -127,13 +127,13 @@ ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar.launch.py
 
 slam 里面包含了实验性的激光雷达里程计
 
-```
+```bash
 ros2 launch myrobot_slam rtabmap_3d_lidar.launch.py
 ```
 
 启动可视化
 
-```
+```bash
 ros2 launch myrobot_visualization display_rtab_3dlidar.launch.py
 ```
 
