@@ -7,6 +7,7 @@ from typing import List
 import rclpy
 from geometry_msgs.msg import PoseStamped, Quaternion
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
+from rclpy.parameter import Parameter
 
 
 
@@ -43,6 +44,7 @@ def build_square_waypoints(navigator: BasicNavigator, side_length: float = 1.0) 
 def main() -> int:
     rclpy.init()
     navigator = BasicNavigator()
+    navigator.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
 
     try:
         # navigator.waitUntilNav2Active()

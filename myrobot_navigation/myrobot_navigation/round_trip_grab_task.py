@@ -11,6 +11,7 @@ from action_msgs.msg import GoalStatus
 from builtin_interfaces.msg import Time
 from geometry_msgs.msg import PoseStamped, Quaternion
 from nav2_simple_commander.robot_navigator import BasicNavigator, TaskResult
+from rclpy.parameter import Parameter
 
 
 def quaternion_from_yaw(yaw: float) -> Quaternion:
@@ -46,6 +47,7 @@ class RoundTripGrabTask:
         point_a_yaw_tolerance: float = 0.7,
     ) -> None:
         self.navigator = BasicNavigator()
+        self.navigator.set_parameters([Parameter('use_sim_time', Parameter.Type.BOOL, True)])
         self.point_a = make_pose(self.navigator, point_a_x, point_a_y, point_a_yaw)
         self.point_b = make_pose(self.navigator, point_b_x, point_b_y, point_b_yaw)
         self.wait_interval_sec = wait_interval_sec

@@ -19,6 +19,10 @@ def generate_launch_description():
     param_file = LaunchConfiguration('params', default=os.path.join(param_dir, 'lidar_3d_rtabmap_nav2_params.yaml'))
 
     return LaunchDescription([
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value='true',
+            description='Use simulation clock if true'),
 
         DeclareLaunchArgument(
             'params',
