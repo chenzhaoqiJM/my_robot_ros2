@@ -136,3 +136,17 @@ ros2 launch myrobot_slam rtabmap_3d_lidar.launch.py
 ```
 ros2 launch myrobot_visualization display_rtab_3dlidar.launch.py
 ```
+
+## 3d 激光雷达导航
+
+启动仿真
+
+```
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar.launch.py
+```
+
+启动 slam 定位模式
+
+```
+ros2 launch myrobot_slam rtabmap_3d_lidar.launch.py localization:=true
+```
