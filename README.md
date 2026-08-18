@@ -79,7 +79,7 @@ ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_only.launch.py
 启动slam
 
 ```bash
-ros2 launch myrobot_slam turtlebot3_rgbd.launch.py
+ros2 launch myrobot_slam rtabmap_rgbd.launch.py
 ```
 
 启动 rviz
