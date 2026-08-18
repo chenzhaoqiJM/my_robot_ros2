@@ -141,12 +141,24 @@ ros2 launch myrobot_visualization display_rtab_3dlidar.launch.py
 
 启动仿真
 
-```
+```bash
 ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar.launch.py
 ```
 
 启动 slam 定位模式
 
-```
+```bash
 ros2 launch myrobot_slam rtabmap_3d_lidar.launch.py localization:=true
+```
+
+启动导航
+
+```bash
+ros2 launch myrobot_navigation lidar_3d_rtabmap_nav2.py
+```
+
+可视化
+
+```bash
+ros2 launch myrobot_visualization display_rgbd.launch.py
 ```
