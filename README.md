@@ -9,7 +9,17 @@ colcon build --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
 
 
 ```
-sudo apt install ros-humble-nav2-graceful-controller
+sudo apt install \
+  ros-humble-navigation2 \
+  ros-humble-nav2-bringup \
+  ros-humble-nav2-controller \
+  ros-humble-nav2-velocity-smoother \
+  ros-humble-nav2-regulated-pure-pursuit-controller \
+  ros-humble-nav2-graceful-controller \
+  python3-zmq python3-serial python3-transforms3d \
+libspdlog-dev libconsole-bridge-dev liborocos-kdl-dev nlohmann-json3-dev liblgpio-dev \
+liblttng-ust-dev libgpiod-dev ros-humble-camera-info-manager ros-humble-slam-toolbox \
+ros-humble-cartographer ros-humble-cartographer-ros ros-humble-nav2*
 ```
 
 # 激光建图导航
