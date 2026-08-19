@@ -1,6 +1,8 @@
 
 ## 安装环境
 
+ROS2 搭配：
+
 ```bash
 pip install mujoco
 ```

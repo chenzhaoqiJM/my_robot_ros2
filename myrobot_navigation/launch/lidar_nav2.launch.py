@@ -16,7 +16,7 @@ def generate_launch_description():
 
     # 地图文件
     map_dir = os.path.join(myrobot_nav_dir, 'map')
-    map_file = LaunchConfiguration('map', default=os.path.join(map_dir, 'my_map2.yaml'))
+    map_file = LaunchConfiguration('map', default=os.path.join(map_dir, 'my_map.yaml'))
 
     # 用于导航的配置参数
     param_dir = os.path.join(myrobot_nav_dir, 'config')

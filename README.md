@@ -18,7 +18,7 @@ sudo apt install ros-humble-nav2-graceful-controller
 启动仿真环境，或者使用mujoco仿真环境
 
 ```bash
-ros2 launch myrobot_sim_mujoco myrobot_diff_lidar.launch.py
+ros2 launch myrobot_sim_gazebo myrobot_diff_lidar.launch.py
 ```
 
 ## 建图
