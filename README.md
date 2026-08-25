@@ -1,14 +1,14 @@
-# 编译命令
+# 使用指南
 
-```
+## 编译命令
+
+```bash
 colcon build --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo
 ```
 
+## 安装依赖
 
-# install deps
-
-
-```
+```bash
 sudo apt install \
   ros-humble-navigation2 \
   ros-humble-nav2-bringup \
@@ -22,8 +22,7 @@ liblttng-ust-dev libgpiod-dev ros-humble-camera-info-manager ros-humble-slam-too
 ros-humble-cartographer ros-humble-cartographer-ros ros-humble-nav2*
 ```
 
-# 激光建图导航
-
+## 2d激光建图导航仿真环境
 
 启动仿真环境，或者使用mujoco仿真环境
 
@@ -31,7 +30,7 @@ ros-humble-cartographer ros-humble-cartographer-ros ros-humble-nav2*
 ros2 launch myrobot_sim_gazebo myrobot_diff_lidar.launch.py
 ```
 
-## 建图
+## 2d lidar 建图
 
 ### slam-toolbox sync
 
@@ -63,7 +62,7 @@ ros2 launch myrobot_visualization display_slam.launch.py
 ros2 run nav2_map_server map_saver_cli -f my_map2
 ```
 
-## 导航
+## 2d lidar 导航
 
 ```bash
 ros2 launch myrobot_navigation lidar_nav2.launch.py
@@ -75,10 +74,7 @@ ros2 launch myrobot_navigation lidar_nav2.launch.py
 ros2 launch myrobot_visualization display_navigation.launch.py
 ```
 
-# 视觉建图导航
-
-
-## 视觉建图
+## 视觉建图（RTAB）
 
 启动仿真
 
@@ -98,7 +94,7 @@ ros2 launch myrobot_slam rtabmap_rgbd.launch.py
 ros2 launch myrobot_visualization display_rgbd.launch.py
 ```
 
-## 视觉导航
+## 视觉导航（RTAB）
 
 启动仿真
 
@@ -123,7 +119,6 @@ ros2 launch myrobot_navigation rgbd_nav2.py
 ```bash
 ros2 launch myrobot_visualization display_rgbd.launch.py
 ```
-
 
 ## 3D 激光雷达建图（RTAB）
 
@@ -173,7 +168,6 @@ ros2 launch myrobot_navigation lidar_3d_rtabmap_nav2.py
 ros2 launch myrobot_visualization display_rgbd.launch.py
 ```
 
-
 ## 3d 激光雷达建图（fastlio）
 
 启动仿真
@@ -192,4 +186,24 @@ ros2 launch myrobot_slam fast_lio_sim.launch.py
 
 ```bash
 ros2 launch myrobot_visualization display_lio.launch.py
+```
+
+## 3d 激光雷达导航（fastlio）
+
+启动仿真
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar_lio.launch.py
+```
+
+启动 slam
+
+```bash
+ros2 launch myrobot_slam fast_lio_sim.launch.py
+```
+
+启动 local 导航
+
+```bash
+ros2 launch myrobot_navigation lio_nav2.launch.py
 ```
