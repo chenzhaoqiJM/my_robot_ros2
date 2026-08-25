@@ -36,6 +36,23 @@ def generate_launch_description():
             parameters=[config_file, {'use_sim_time': use_sim_time}],
         ),
         Node(
+            package='myrobot_slam',
+            executable='fast_lio_odom_relay',
+            name='fast_lio_odom_relay',
+            output='screen',
+            parameters=[{'use_sim_time': use_sim_time}],
+        ),
+        Node(
+            package='tf2_ros',
+            executable='static_transform_publisher',
+            name='fast_lio_odom_to_camera_init',
+            arguments=[
+                '--frame-id', 'odom',
+                '--child-frame-id', 'camera_init',
+            ],
+            output='screen',
+        ),
+        Node(
             package='tf2_ros',
             executable='static_transform_publisher',
             name='fast_lio_body_to_base_footprint',

@@ -25,7 +25,8 @@ setup(
     entry_points={
         'console_scripts': [
             'hello_node = myrobot_slam.hello_node:main',
-            'odom_pub_node = myrobot_slam.odom_pub:main'
+            'odom_pub_node = myrobot_slam.odom_pub:main',
+            'fast_lio_odom_relay = myrobot_slam.fast_lio_odom_relay:main',
         ],
     },
 )
