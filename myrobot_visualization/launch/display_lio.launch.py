@@ -23,7 +23,7 @@ import os
 
 def generate_launch_description():
     package_path = get_package_share_path('myrobot_visualization')
-    default_rviz_config_path = os.path.join(package_path, 'config','lio.rviz')
+    default_rviz_config_path = os.path.join(package_path, 'config','fastlio.rviz')
     use_sim_time = LaunchConfiguration('use_sim_time')
 
     rviz_arg = DeclareLaunchArgument(name='rvizconfig', default_value=str(default_rviz_config_path),

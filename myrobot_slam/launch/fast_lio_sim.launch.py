@@ -38,10 +38,11 @@ def generate_launch_description():
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
-            name='fast_lio_camera_init_to_odom',
+            name='fast_lio_body_to_base_footprint',
             arguments=[
-                '--frame-id', 'camera_init',
-                '--child-frame-id', 'odom',
+                '--z', '-0.059',
+                '--frame-id', 'body',
+                '--child-frame-id', 'base_footprint',
             ],
             output='screen',
         ),

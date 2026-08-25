@@ -147,7 +147,7 @@ ros2 launch myrobot_slam rtabmap_3d_lidar.launch.py
 ros2 launch myrobot_visualization display_rtab_3dlidar.launch.py
 ```
 
-## 3d 激光雷达导航
+## 3d 激光雷达导航（RTAB）
 
 启动仿真
 
@@ -171,4 +171,25 @@ ros2 launch myrobot_navigation lidar_3d_rtabmap_nav2.py
 
 ```bash
 ros2 launch myrobot_visualization display_rgbd.launch.py
+```
+
+
+## 3d 激光雷达建图（fastlio）
+
+启动仿真
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar_lio.launch.py
+```
+
+启动 slam
+
+```bash
+ros2 launch myrobot_slam fast_lio_sim.launch.py
+```
+
+启动可视化
+
+```bash
+ros2 launch myrobot_visualization display_lio.launch.py
 ```

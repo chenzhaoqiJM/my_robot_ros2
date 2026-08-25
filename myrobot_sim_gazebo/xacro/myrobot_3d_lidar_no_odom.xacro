@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot name="myrobot_diff_bot_3d_lidar" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/myrobot_base_no_odom.xacro" />
+    <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/imu_gazebo.xacro" />
+    <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/lidar_3d_gazebo.xacro" />
+    <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/camera_gazebo.xacro" />
+
+    <xacro:property name="rgbd_offset_x" value="${base_radius+0.02}" />
+    <xacro:property name="rgbd_offset_y" value="0" />
+    <xacro:property name="rgbd_offset_z" value="0.02" />
+
+    <xacro:property name="lidar3d_offset_x" value="0.07" />
+    <xacro:property name="lidar3d_offset_y" value="0" />
+    <xacro:property name="lidar3d_offset_z" value="${base_height/2+0.05}" />
+
+    <xacro:base_gazebo/>
+
+    <joint name="lidar3d_joint" type="fixed">
+        <origin xyz="${lidar3d_offset_x} ${lidar3d_offset_y} ${lidar3d_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="lidar3d_link"/>
+    </joint>
+
+    <xacro:lidar_3d
+        prefix="lidar3d"
+        topic="points"
+        samples="720"
+        vertical_samples="16"
+        min_angle="-3.14159"
+        max_angle="3.14159"
+        min_vertical_angle="-0.261799"
+        max_vertical_angle="0.261799"
+        min_range="0.10"
+        max_range="30.0"
+        update_rate="10"
+        visualize="true"/>
+
+    <joint name="imu_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+    </joint>
+
+    <xacro:imu_xacro prefix="imu"/>
+
+    <!-- <joint name="rgbd_camera_joint" type="fixed">
+        <origin xyz="${rgbd_offset_x} ${rgbd_offset_y} ${rgbd_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="camera_link"/>
+    </joint>
+
+    <xacro:mipi_camera prefix="camera"/> -->
+
+</robot>
