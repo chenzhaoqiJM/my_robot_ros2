@@ -263,3 +263,23 @@ ros2 launch myrobot_slam fast_lio_sim.launch.py
 ```bash
 ros2 launch myrobot_navigation lio_map_nav2.launch.py
 ```
+
+### FAST-LIO里程计+2d slam建图 + nav2
+
+可以提供动态建图能力
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar_lio.launch.py
+```
+
+启动 slam
+
+```bash
+ros2 launch myrobot_slam fast_lio_sim.launch.py
+```
+
+启动导航
+
+```bash
+ros2 launch myrobot_navigation lio_slam_nav2.launch.py
+```
