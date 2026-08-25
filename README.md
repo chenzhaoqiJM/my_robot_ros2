@@ -190,6 +190,8 @@ ros2 launch myrobot_visualization display_lio.launch.py
 
 ## 3d 激光雷达导航（fastlio）
 
+### 纯本地 odom 导航
+
 启动仿真
 
 ```bash
@@ -206,4 +208,58 @@ ros2 launch myrobot_slam fast_lio_sim.launch.py
 
 ```bash
 ros2 launch myrobot_navigation lio_nav2.launch.py
+```
+
+### FAST-LIO里程计 + AMCL
+
+启动仿真
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar_lio.launch.py
+```
+
+启动 slam
+
+```bash
+ros2 launch myrobot_slam fast_lio_sim.launch.py
+```
+
+启动转换节点
+
+```bash
+ros2 run pointcloud_to_laserscan pointcloud_to_laserscan_node --ros-args \
+  -r cloud_in:=/points \
+  -r scan:=/scan \
+  -p target_frame:=base_footprint \
+  -p min_height:=0.02 \
+  -p max_height:=0.35 \
+  -p angle_min:=-3.14159 \
+  -p angle_max:=3.14159 \
+  -p range_min:=0.10 \
+  -p range_max:=12.0 \
+  -p use_inf:=true
+```
+
+启动 amcl 导航
+
+```bash
+ros2 launch myrobot_navigation lidar_nav2.launch.py
+```
+
+### FAST-LIO里程计绑定map
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar_lio.launch.py
+```
+
+启动 slam
+
+```bash
+ros2 launch myrobot_slam fast_lio_sim.launch.py
+```
+
+启动导航
+
+```bash
+ros2 launch myrobot_navigation lio_map_nav2.launch.py
 ```
