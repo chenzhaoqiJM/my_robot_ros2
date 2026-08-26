@@ -1,6 +1,6 @@
 <mujoco model="myrobot_diff_3d_lidar">
   <compiler angle="radian" coordinate="local"/>
-  <option timestep="0.01" gravity="0 0 -9.81" integrator="RK4"/>
+  <option timestep="0.005" gravity="0 0 -9.81" integrator="RK4"/>
   <default>
     <geom friction="1.0 0.01 0.001" contype="0" conaffinity="0" rgba="0.8 0.8 0.8 1"/>
     <joint damping="0.1"/>
@@ -20,7 +20,7 @@
     <body name="base" pos="0 0 0.08">
       <freejoint name="base_free_joint"/>
       <geom name="base_geom" type="cylinder" size="0.10 0.035" material="yellow" mass="1.0"/>
-      <site name="laser3d_site" pos="0.07 0 0.064" size="0.01" rgba="0 0 1 1"/>
+      <site name="laser3d_site" pos="0.07 0 0.085" size="0.01" rgba="0 0 1 1"/>
       <site name="imu_site" pos="0 0 0.045" size="0.01" rgba="0 1 0 1"/>
       <body name="left_wheel" pos="0 0.1125 -0.04" euler="1.57079632679 0 0">
         <joint name="left_wheel_joint" type="hinge" axis="0 0 1"/>

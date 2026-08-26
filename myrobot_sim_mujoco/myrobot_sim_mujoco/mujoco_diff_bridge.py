@@ -43,9 +43,12 @@ class MujocoDiffBridge(Node):
 
         self._declare_parameter_overrides()
         self.declare_parameter('model_path', '')
-        self.declare_parameter('update_rate', 100.0)
+        # The 3D LiDAR configuration uses 200 Hz so the IMU can publish once
+        # per simulation step.  2D configurations may still override this
+        # parameter with a lower rate.
+        self.declare_parameter('update_rate', 200.0)
         self.declare_parameter('publish_rate', 30.0)
-        self.declare_parameter('imu_publish_rate', 100.0)
+        self.declare_parameter('imu_publish_rate', 200.0)
         self.declare_parameter('publish_clock', True)
         self.declare_parameter('publish_tf', True)
         self.declare_parameter('odom_frame', 'odom')
