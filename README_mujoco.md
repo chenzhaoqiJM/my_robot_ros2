@@ -17,7 +17,13 @@ ros2 launch myrobot_sim_mujoco myrobot_diff_lidar.launch.py enable_viewer:=true
 ### 3d 激光雷达
 
 ```bash
-ros2 launch myrobot_sim_mujoco myrobot_diff_3d_lidar.launch.py
+ros2 launch myrobot_sim_mujoco myrobot_diff_3d_lidar.launch.py enable_viewer:=true
+```
+
+不带 odom + odom tf
+
+```bash
+ros2 launch myrobot_sim_mujoco myrobot_diff_3d_lidar_no_odom.launch.py enable_viewer:=true
 ```
 
 建图导航参考 README 的命令即可

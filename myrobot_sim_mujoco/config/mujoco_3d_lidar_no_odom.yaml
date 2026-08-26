@@ -5,14 +5,14 @@ mujoco_3d_lidar_bridge:
     publish_rate: 10.0
     use_sim_time: true
     publish_clock: true
-    publish_tf: true
+    publish_tf: false
     odom_frame: odom
     base_frame: base_footprint
     base_link_frame: base_link
     laser_frame: lidar3d_link
     imu_frame: imu_link
     cmd_vel_topic: /cmd_vel
-    odom_topic: /odom
+    odom_topic: /odom_mujoco
     imu_topic: /imu/data_raw
     laser_site: laser3d_site
     laser_min_range: 0.10
@@ -25,4 +25,4 @@ mujoco_3d_lidar_bridge:
     horizontal_max_angle: 3.1415926
     vertical_min_angle: -0.2617994
     vertical_max_angle: 0.2617994
-    enable_viewer: false
+    enable_viewer: true

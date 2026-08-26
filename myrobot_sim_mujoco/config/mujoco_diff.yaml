@@ -18,7 +18,7 @@ mujoco_diff_bridge:
     cmd_vel_topic: /cmd_vel
     odom_topic: /odom
     scan_topic: /scan
-    imu_topic: /imu/data
+    imu_topic: /imu/data_raw
 
     wheel_radius: 0.04
     wheel_separation: 0.225
