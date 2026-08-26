@@ -338,14 +338,15 @@ class MujocoDiffBridge(Node):
             quat = self.data.sensordata[self.imu_quat_slice]
             gyro = self.data.sensordata[self.imu_gyro_slice]
             accel = self.data.sensordata[self.imu_accel_slice]
+            gravity = -float(self.model.opt.gravity[2])
             imu.orientation = Quaternion(x=float(quat[1]), y=float(quat[2]), z=float(quat[3]), w=float(quat[0]))
             imu.angular_velocity = Vector3(x=float(gyro[0]), y=float(gyro[1]), z=float(gyro[2]))
-            imu.linear_acceleration = Vector3(x=float(accel[0]), y=float(accel[1]), z=float(accel[2]))
+            imu.linear_acceleration = Vector3(x=float(accel[0]), y=float(accel[1]), z=float(accel[2] + gravity))
             imu.orientation_covariance[0] = 1e-3
         else:
             imu.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
             imu.angular_velocity = Vector3(x=0.0, y=0.0, z=self.cmd_w)
-            imu.linear_acceleration = Vector3(x=0.0, y=0.0, z=0.0)
+            imu.linear_acceleration = Vector3(x=0.0, y=0.0, z=-float(self.model.opt.gravity[2]))
             imu.orientation_covariance[0] = -1.0
 
         imu.angular_velocity_covariance[0] = 1e-3
