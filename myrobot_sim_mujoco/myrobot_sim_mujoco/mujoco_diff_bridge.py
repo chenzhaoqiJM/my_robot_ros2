@@ -45,6 +45,7 @@ class MujocoDiffBridge(Node):
         self.declare_parameter('model_path', '')
         self.declare_parameter('update_rate', 100.0)
         self.declare_parameter('publish_rate', 30.0)
+        self.declare_parameter('imu_publish_rate', 100.0)
         self.declare_parameter('publish_clock', True)
         self.declare_parameter('publish_tf', True)
         self.declare_parameter('odom_frame', 'odom')
@@ -65,6 +66,9 @@ class MujocoDiffBridge(Node):
         self.declare_parameter('laser_max_range', 12.0)
         self.declare_parameter('laser_frame_id', 'laser_link')
         self.declare_parameter('laser_site', 'laser_site')
+        self.declare_parameter('imu_quat_sensor', 'imu_quat')
+        self.declare_parameter('imu_gyro_sensor', 'imu_gyro')
+        self.declare_parameter('imu_accel_sensor', 'imu_accel')
         self.declare_parameter('enable_viewer', False)
         self.declare_parameter('max_linear_velocity', 0.5)
         self.declare_parameter('max_angular_velocity', 1.5)
@@ -79,6 +83,7 @@ class MujocoDiffBridge(Node):
 
         self.update_rate = float(self.get_parameter('update_rate').value)
         self.publish_rate = float(self.get_parameter('publish_rate').value)
+        self.imu_publish_rate = float(self.get_parameter('imu_publish_rate').value)
         self.publish_clock = bool(self.get_parameter('publish_clock').value)
         self.publish_tf = bool(self.get_parameter('publish_tf').value)
         self.odom_frame = str(self.get_parameter('odom_frame').value)
@@ -98,6 +103,9 @@ class MujocoDiffBridge(Node):
         self.laser_min_range = float(self.get_parameter('laser_min_range').value)
         self.laser_max_range = float(self.get_parameter('laser_max_range').value)
         self.laser_site = str(self.get_parameter('laser_site').value)
+        self.imu_quat_sensor = str(self.get_parameter('imu_quat_sensor').value)
+        self.imu_gyro_sensor = str(self.get_parameter('imu_gyro_sensor').value)
+        self.imu_accel_sensor = str(self.get_parameter('imu_accel_sensor').value)
         self.enable_viewer = bool(self.get_parameter('enable_viewer').value)
         self.max_linear_velocity = float(self.get_parameter('max_linear_velocity').value)
         self.max_angular_velocity = float(self.get_parameter('max_angular_velocity').value)
@@ -108,6 +116,21 @@ class MujocoDiffBridge(Node):
         self.laser_site_id = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_SITE, self.laser_site)
         if self.laser_site_id < 0:
             raise RuntimeError(f'MuJoCo site not found: {self.laser_site}')
+        self.imu_quat_slice = self._sensor_slice(self.imu_quat_sensor, 4)
+        self.imu_gyro_slice = self._sensor_slice(self.imu_gyro_sensor, 3)
+        self.imu_accel_slice = self._sensor_slice(self.imu_accel_sensor, 3)
+        self.has_mujoco_imu = (
+            self.imu_quat_slice is not None
+            and self.imu_gyro_slice is not None
+            and self.imu_accel_slice is not None
+        )
+        if self.has_mujoco_imu:
+            self.get_logger().info(
+                'Using MuJoCo IMU sensors: '
+                f'{self.imu_quat_sensor}, {self.imu_gyro_sensor}, {self.imu_accel_sensor}'
+            )
+        else:
+            self.get_logger().warn('MuJoCo IMU sensors not found; falling back to synthetic IMU data')
         self.base_body_id = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, 'base')
         self.ray_geom_group = np.ones(6, dtype=np.uint8)
         self.viewer = None
@@ -135,6 +158,7 @@ class MujocoDiffBridge(Node):
 
         self.dt = 1.0 / self.update_rate
         self.publish_dt = 1.0 / self.publish_rate
+        self.imu_publish_dt = 1.0 / self.imu_publish_rate
         self._running = True
         self._initialize_specialized_bridge()
         self.step_thread = threading.Thread(target=self._run_loop, daemon=True)
@@ -168,8 +192,11 @@ class MujocoDiffBridge(Node):
 
         self.last_left = left
         self.last_right = right
+        previous_qvel = np.array(self.data.qvel, copy=True)
         self._integrate_planar_motion()
-        mujoco.mj_forward(self.model, self.data)
+        if self.model.nv > 0:
+            self.data.qacc[:] = (self.data.qvel - previous_qvel) / self.dt
+        self._forward_kinematic_state()
         if self.viewer is not None:
             self.viewer.sync()
         self.sim_time += self.dt
@@ -189,7 +216,7 @@ class MujocoDiffBridge(Node):
             self._publish_scan(now)
             self.last_scan_pub_time = self.sim_time
 
-        if self.sim_time - self.last_imu_pub_time >= self.publish_dt:
+        if self.sim_time - self.last_imu_pub_time >= self.imu_publish_dt:
             self._publish_imu(now)
             self.last_imu_pub_time = self.sim_time
 
@@ -224,6 +251,14 @@ class MujocoDiffBridge(Node):
         if self.model.nv >= 8:
             self.data.qvel[6] = self.last_left
             self.data.qvel[7] = self.last_right
+
+    def _forward_kinematic_state(self) -> None:
+        mujoco.mj_fwdPosition(self.model, self.data)
+        mujoco.mj_fwdVelocity(self.model, self.data)
+        if self.model.nsensor > 0:
+            mujoco.mj_sensorPos(self.model, self.data)
+            mujoco.mj_sensorVel(self.model, self.data)
+            mujoco.mj_sensorAcc(self.model, self.data)
 
     def _publish_odom(self, stamp) -> None:
         x, y, yaw = self._pose_from_data()
@@ -298,13 +333,40 @@ class MujocoDiffBridge(Node):
         imu = Imu()
         imu.header.stamp = stamp.to_msg()
         imu.header.frame_id = self.imu_frame
-        imu.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
-        imu.angular_velocity = Vector3(x=0.0, y=0.0, z=self.cmd_w)
-        imu.linear_acceleration = Vector3(x=0.0, y=0.0, z=0.0)
-        imu.orientation_covariance[0] = -1.0
+
+        if self.has_mujoco_imu:
+            quat = self.data.sensordata[self.imu_quat_slice]
+            gyro = self.data.sensordata[self.imu_gyro_slice]
+            accel = self.data.sensordata[self.imu_accel_slice]
+            imu.orientation = Quaternion(x=float(quat[1]), y=float(quat[2]), z=float(quat[3]), w=float(quat[0]))
+            imu.angular_velocity = Vector3(x=float(gyro[0]), y=float(gyro[1]), z=float(gyro[2]))
+            imu.linear_acceleration = Vector3(x=float(accel[0]), y=float(accel[1]), z=float(accel[2]))
+            imu.orientation_covariance[0] = 1e-3
+        else:
+            imu.orientation = Quaternion(x=0.0, y=0.0, z=0.0, w=1.0)
+            imu.angular_velocity = Vector3(x=0.0, y=0.0, z=self.cmd_w)
+            imu.linear_acceleration = Vector3(x=0.0, y=0.0, z=0.0)
+            imu.orientation_covariance[0] = -1.0
+
         imu.angular_velocity_covariance[0] = 1e-3
         imu.linear_acceleration_covariance[0] = 1e-2
         self.imu_pub.publish(imu)
+
+    def _sensor_slice(self, name: str, expected_dim: int) -> Optional[slice]:
+        sensor_id = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_SENSOR, name)
+        if sensor_id < 0:
+            self.get_logger().warn(f'MuJoCo sensor not found: {name}')
+            return None
+
+        dim = int(self.model.sensor_dim[sensor_id])
+        if dim != expected_dim:
+            self.get_logger().warn(
+                f'MuJoCo sensor {name} has dim {dim}, expected {expected_dim}'
+            )
+            return None
+
+        start = int(self.model.sensor_adr[sensor_id])
+        return slice(start, start + dim)
 
     def _pose_from_data(self) -> tuple[float, float, float]:
         return self.pose.x, self.pose.y, self.pose.yaw

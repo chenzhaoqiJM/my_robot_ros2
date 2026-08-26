@@ -3,6 +3,7 @@ mujoco_3d_lidar_bridge:
     model_path: ""
     update_rate: 100.0
     publish_rate: 10.0
+    imu_publish_rate: 100.0
     use_sim_time: true
     publish_clock: true
     publish_tf: false

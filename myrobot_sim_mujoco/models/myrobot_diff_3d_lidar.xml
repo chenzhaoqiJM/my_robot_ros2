@@ -56,4 +56,10 @@
     <velocity name="left_wheel_velocity" joint="left_wheel_joint" kv="10" ctrlrange="-30 30"/>
     <velocity name="right_wheel_velocity" joint="right_wheel_joint" kv="10" ctrlrange="-30 30"/>
   </actuator>
+
+  <sensor>
+    <framequat name="imu_quat" objtype="site" objname="imu_site"/>
+    <gyro name="imu_gyro" site="imu_site"/>
+    <accelerometer name="imu_accel" site="imu_site"/>
+  </sensor>
 </mujoco>
