@@ -1,0 +1,32 @@
+mujoco_rgbd_bridge:
+  ros__parameters:
+    model_path: ""
+    update_rate: 200.0
+    publish_rate: 30.0
+    imu_publish_rate: 200.0
+    camera_update_rate: 20.0
+    use_sim_time: true
+    publish_clock: true
+    publish_tf: true
+    enable_viewer: false
+    odom_frame: odom
+    base_frame: base_footprint
+    base_link_frame: base_link
+    laser_site: laser_site
+    laser_frame: laser_link
+    imu_frame: imu_link
+    camera_name: camera
+    camera_frame: camera_link
+    optical_frame: camera_optical_frame
+    camera_topic: /camera/image_raw
+    depth_topic: /camera/depth/image_raw
+    camera_info_topic: /camera/camera_info
+    camera_width: 640
+    camera_height: 480
+    camera_fov: 1.04719755
+    camera_near: 0.02
+    camera_far: 8.0
+    camera_noise_stddev: 0.007
+    camera_offset_x: 0.12
+    camera_offset_y: 0.0
+    camera_offset_z: 0.02

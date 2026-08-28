@@ -27,6 +27,7 @@ setup(
         'console_scripts': [
             'mujoco_diff_bridge = myrobot_sim_mujoco.mujoco_diff_bridge:main',
             'mujoco_3d_lidar_bridge = myrobot_sim_mujoco.mujoco_3d_lidar_bridge:main',
+            'mujoco_rgbd_bridge = myrobot_sim_mujoco.mujoco_rgbd_bridge:main',
         ],
     },
 )
