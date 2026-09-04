@@ -74,6 +74,18 @@ ros2 launch myrobot_navigation lidar_nav2.launch.py
 ros2 launch myrobot_visualization display_navigation.launch.py
 ```
 
+## 2d lidar 无 odom 建图导航
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_no_odom.launch.py
+
+ros2 launch myrobot_slam cartographer_odom.launch.py
+
+ros2 launch myrobot_navigation nav2_for_slam.launch.py
+
+ros2 launch myrobot_visualization display_navigation.launch.py
+```
+
 ## 视觉建图（RTAB）
 
 启动仿真
@@ -92,6 +104,27 @@ ros2 launch myrobot_slam rtabmap_rgbd.launch.py
 
 ```bash
 ros2 launch myrobot_visualization display_rgbd.launch.py
+```
+
+### no odom 模式
+
+使用 rtab icp
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_no_odom.launch.py
+
+
+ros2 launch myrobot_slam rtabmap_rgbd_no_odom.launch.py
+```
+
+使用二维激光雷达里程计
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_no_odom.launch.py
+
+ros2 launch myrobot_slam cartographer_odom.launch.py
+
+ros2 launch myrobot_slam rtabmap_rgbd.launch.py
 ```
 
 ## 视觉导航（RTAB）

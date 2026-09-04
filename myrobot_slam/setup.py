@@ -27,6 +27,8 @@ setup(
             'hello_node = myrobot_slam.hello_node:main',
             'odom_pub_node = myrobot_slam.odom_pub:main',
             'fast_lio_odom_relay = myrobot_slam.fast_lio_odom_relay:main',
+            'kiss_icp_odom_2d = myrobot_slam.kiss_icp_odom_2d:main',
+            'tf_to_odom = myrobot_slam.tf_to_odom:main',
         ],
     },
 )
