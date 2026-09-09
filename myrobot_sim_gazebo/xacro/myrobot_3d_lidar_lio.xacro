@@ -22,17 +22,19 @@
         <child link="lidar3d_link"/>
     </joint>
 
+    <!-- MID-360 approximation for Gazebo's uniform gpu_ray scanner:
+         500 * 40 * 10 Hz = 200,000 points/s. -->
     <xacro:lidar_3d
         prefix="lidar3d"
         topic="points"
-        samples="720"
-        vertical_samples="16"
+        samples="500"
+        vertical_samples="40"
         min_angle="-3.14159"
         max_angle="3.14159"
-        min_vertical_angle="-0.261799"
-        max_vertical_angle="0.261799"
+        min_vertical_angle="-0.122173"
+        max_vertical_angle="0.907571"
         min_range="0.10"
-        max_range="30.0"
+        max_range="40.0"
         update_rate="10"
         visualize="true"/>
 

@@ -27,6 +27,7 @@ setup(
     entry_points={
         'console_scripts': [
             'square_waypoints = myrobot_navigation.square_waypoints:main',
+            'scan_planner_adapter = myrobot_navigation.scan_planner_adapter:main',
         ],
     },
 )

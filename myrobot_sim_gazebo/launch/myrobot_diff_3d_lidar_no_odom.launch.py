@@ -15,7 +15,7 @@ def generate_launch_description():
     pkg_path = os.path.join(get_package_share_directory(package_name))
     world_path = os.path.join(pkg_path, world_file_path)
 
-    xacro_file = os.path.join(pkg_path, 'xacro', 'myrobot_3d_lidar_lio.xacro')
+    xacro_file = os.path.join(pkg_path, 'xacro', 'myrobot_3d_lidar_no_odom.xacro')
     robot_description_config = xacro.process_file(xacro_file)
     params = {
         'robot_description': robot_description_config.toxml(),
