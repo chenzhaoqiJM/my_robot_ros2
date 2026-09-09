@@ -4,12 +4,13 @@
     <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/myrobot_base_no_odom.xacro" />
     <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/rgbd_gazebo.xacro" />
     <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/lidar_gazebo.xacro" />
+    <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/imu_gazebo.xacro" />
 
     <xacro:property name="rgbd_offset_x" value="${base_radius+0.02}" />
     <xacro:property name="rgbd_offset_y" value="0" />
     <xacro:property name="rgbd_offset_z" value="0.02" />
 
-    <xacro:property name="lidar_offset_x" value="0" />
+    <xacro:property name="lidar_offset_x" value="0.07" />
     <xacro:property name="lidar_offset_y" value="0" />
     <xacro:property name="lidar_offset_z" value="${base_height/2+0.01}" />
 
@@ -34,5 +35,14 @@
     </joint>
 
     <xacro:lidar prefix="laser"/>
+
+    <!-- imu -->
+    <joint name="imu_joint" type="fixed">
+        <origin xyz="0 0 ${base_height/2+0.01}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+    </joint>
+
+    <xacro:imu_xacro prefix="imu"/>
 
 </robot>

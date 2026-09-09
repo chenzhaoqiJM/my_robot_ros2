@@ -19,7 +19,8 @@
       # Gazebo publishes x/y/z/intensity only. Use FAST-LIO's generic
       # PointXYZI handler instead of Velodyne/Ouster handlers needing ring/time.
       lidar_type: 5
-      scan_line: 16
+      # Gazebo approximation of MID-360 point-cloud density.
+      scan_line: 40
       scan_rate: 10
       timestamp_unit: 0
       blind: 0.10
@@ -30,7 +31,8 @@
       b_acc_cov: 0.0001
       b_gyr_cov: 0.0001
       fov_degree: 360.0
-      det_range: 30.0
+      # Conservative MID-360 range at 10% target reflectivity.
+      det_range: 40.0
       extrinsic_est_en: false
       extrinsic_T: [0.07, 0.0, 0.085]
       extrinsic_R: [1.0, 0.0, 0.0,

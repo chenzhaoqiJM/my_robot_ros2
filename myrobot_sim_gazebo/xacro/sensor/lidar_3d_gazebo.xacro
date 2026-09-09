@@ -4,17 +4,18 @@
     <xacro:macro name="lidar_3d" params="prefix:=lidar3d topic:=points samples:=720 vertical_samples:=16 min_angle:=-3.14159 max_angle:=3.14159 min_vertical_angle:=-0.261799 max_vertical_angle:=0.261799 min_range:=0.10 max_range:=30.0 update_rate:=10 visualize:=false">
         <link name="${prefix}_link">
             <inertial>
-                <mass value="0.25" />
+                <!-- Livox MID-360: 65 x 65 x 60 mm, 265 g. -->
+                <mass value="0.265" />
                 <origin xyz="0 0 0" />
-                <inertia ixx="0.02" ixy="0.0" ixz="0.0"
-                         iyy="0.02" iyz="0.0"
-                         izz="0.02" />
+                <inertia ixx="0.000172802" ixy="0.0" ixz="0.0"
+                         iyy="0.000172802" iyz="0.0"
+                         izz="0.000186604" />
             </inertial>
 
             <visual>
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <cylinder length="0.05" radius="0.04"/>
+                    <box size="0.065 0.065 0.060"/>
                 </geometry>
                 <material name="black"/>
             </visual>
@@ -22,7 +23,7 @@
             <collision>
                 <origin xyz="0 0 0" rpy="0 0 0" />
                 <geometry>
-                    <cylinder length="0.05" radius="0.04"/>
+                    <box size="0.065 0.065 0.060"/>
                 </geometry>
             </collision>
         </link>

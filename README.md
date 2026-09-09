@@ -127,6 +127,12 @@ ros2 launch myrobot_slam cartographer_odom.launch.py
 ros2 launch myrobot_slam rtabmap_rgbd.launch.py
 ```
 
+启动 rviz
+
+```bash
+ros2 launch myrobot_visualization display_rgbd.launch.py
+```
+
 ## 视觉导航（RTAB）
 
 启动仿真
