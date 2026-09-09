@@ -28,6 +28,7 @@ setup(
         'console_scripts': [
             'square_waypoints = myrobot_navigation.square_waypoints:main',
             'scan_planner_adapter = myrobot_navigation.scan_planner_adapter:main',
+            'scan_planner_adapter_3d = myrobot_navigation.scan_planner_adapter_3d:main',
         ],
     },
 )

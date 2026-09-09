@@ -1,5 +1,8 @@
 # SCAN-Planner 接入 myrobot Gazebo 仿真指南
 
+> 本文是原二维稳定模式。完整保留 FAST-LIO 三维位姿的新模式见
+> `SCAN_PLANNER_GAZEBO_3D_GUIDE_CN.md`；两者互不覆盖。
+
 ## 1. 已验证环境
 
 - Ubuntu 22.04
