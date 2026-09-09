@@ -322,3 +322,25 @@ ros2 launch myrobot_slam fast_lio_sim.launch.py
 ```bash
 ros2 launch myrobot_navigation lio_slam_nav2.launch.py
 ```
+
+## SCAN-Planner 使用
+
+### 一键启动
+
+```bash
+ros2 launch myrobot_navigation scan_planner_gazebo.launch.py
+```
+
+### fast lio 出里程计
+
+```bash
+ros2 launch myrobot_sim_gazebo myrobot_diff_3d_lidar_lio.launch.py
+```
+
+```bash
+ros2 launch myrobot_slam fast_lio_sim.launch.py
+```
+
+```bash
+ros2 launch myrobot_navigation scan_planner_gazebo.launch.py start_gazebo:=false
+```
