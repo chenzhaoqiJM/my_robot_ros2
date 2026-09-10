@@ -77,7 +77,7 @@ ros2 launch myrobot_visualization display_navigation.launch.py
 ## 2d lidar 无 odom 建图导航
 
 ```bash
-ros2 launch myrobot_sim_gazebo myrobot_diff_rgbd_no_odom.launch.py
+ros2 launch myrobot_sim_gazebo myrobot_diff_lidar_no_odom.launch.py
 
 ros2 launch myrobot_slam cartographer_odom.launch.py
 
