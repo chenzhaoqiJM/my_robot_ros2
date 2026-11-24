@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="imu">
 
-    <xacro:macro name="imu_xacro" params="prefix:=imu">
+    <xacro:macro name="imu_xacro" params="prefix:=imu topic:='' link_name:=''">
+        <xacro:property name="imu_link_name" value="${link_name if link_name else prefix + '_link'}" />
+        <xacro:property name="imu_topic" value="${topic if topic else prefix + '/data_raw'}" />
         <!-- Create imu reference frame -->
-        <link name="${prefix}_link">
+        <link name="${imu_link_name}">
             <inertial>
                 <mass value="0.1" />
                 <origin xyz="0 0 0" />
@@ -27,11 +29,11 @@
                 </geometry>
             </collision>
         </link>
-        <gazebo reference="${prefix}_link">
+        <gazebo reference="${imu_link_name}">
             <material>Gazebo/Red</material>
         </gazebo>
 
-        <gazebo reference="${prefix}_link">
+        <gazebo reference="${imu_link_name}">
             <gravity>true</gravity>
             <sensor name="${prefix}" type="imu">
                 <always_on>true</always_on>
@@ -94,7 +96,7 @@
                 <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
                     <ros>
                         <!-- <namespace>/</namespace> -->
-                        <remapping>~/out:=${prefix}/data_raw</remapping>
+                        <remapping>~/out:=${imu_topic}</remapping>
                     </ros>
                     <!-- <topicName>/imu/data_raw</topicName>
                     <bodyName>${prefix}_link</bodyName> -->
@@ -102,7 +104,7 @@
                     <gaussianNoise>0.0</gaussianNoise>
                     <xyzOffset>0 0 0</xyzOffset>
                     <rpyOffset>0 0 0</rpyOffset> -->
-                    <frame_name>${prefix}_link</frame_name>
+                    <frame_name>${imu_link_name}</frame_name>
                     <initialOrientationAsReference>false</initialOrientationAsReference>
                 </plugin>
                 <pose>0 0 0 0 0 0</pose>

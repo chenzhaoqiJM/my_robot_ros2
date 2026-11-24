@@ -3,6 +3,7 @@
 
     <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/myrobot_base.xacro" />
     <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/rgbd_gazebo.xacro" />
+    <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/imu_gazebo.xacro" />
     <xacro:include filename="$(find myrobot_sim_gazebo)/xacro/sensor/lidar_gazebo.xacro" />
 
     <xacro:property name="rgbd_offset_x" value="${base_radius+0.02}" />
@@ -25,6 +26,24 @@
 
     <!-- 保持与camera_link一致 -->
     <xacro:rgbd_camera prefix="camera"/>
+
+    <!-- IMU 外参来自 /home/chenzhaoqi/rgbd_data_imu 的 /tf_static。
+         camera_link -> camera_gyro_frame -> camera_imu_frame，单位为米。 -->
+    <joint name="camera_imu_joint" type="fixed">
+        <origin xyz="-0.011739999987185 -0.005520000122487545 0.005100000184029341" rpy="0 0 0" />
+        <parent link="camera_link"/>
+        <child link="camera_imu_frame"/>
+    </joint>
+    <link name="camera_imu_frame"/>
+
+    <!-- 与数据包一致：光学坐标系 x 向右、y 向下、z 向前。
+         将传感器本体一同旋转，保证测量值和 frame_id 使用相同的坐标轴。 -->
+    <joint name="camera_imu_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+        <parent link="camera_imu_frame"/>
+        <child link="camera_imu_optical_frame"/>
+    </joint>
+    <xacro:imu_xacro prefix="camera_imu" topic="/camera/imu" link_name="camera_imu_optical_frame"/>
 
     <!-- Lidar -->
     <!-- <joint name="lidar_joint" type="fixed">
